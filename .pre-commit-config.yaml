@@ -1,0 +1,52 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v3.12.0
+    hooks:
+      - id: reorder-python-imports
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.2
+    hooks:
+      - id: pyupgrade
+  - repo: https://github.com/ambv/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+  - repo: https://github.com/PyCQA/pylint
+    rev: v3.1.0
+    hooks:
+      - id: pylint
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.9.0
+    hooks:
+      - id: mypy
+        language: python
+        name: mypy
+        require_serial: true
+        types:
+        - python
+        args: [--install-types,--check-untyped-defs, --no-strict-optional]
+        additional_dependencies:
+          [
+            python-dotenv==1.0.1,
+            loguru==0.7.2,
+            pydantic-settings==2.2.1,
+            aiohttp==3.9.5,
+            beautifulsoup4==4.12.3
+          ]
+  - repo: https://github.com/python-poetry/poetry
+    rev: "1.8.0"
+    hooks:
+      - id: poetry-check
+      - id: poetry-lock
