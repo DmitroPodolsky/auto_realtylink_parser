@@ -1,5 +1,6 @@
 import asyncio
 import json
+import math
 import re
 from concurrent.futures import ProcessPoolExecutor
 
@@ -25,7 +26,7 @@ async def parse_apartment_urls() -> list[dict[str, str]]:
         logger.info("Fetching Page URLs")
         tasks = [
             fetch_post_html_from_url(session, page_number)
-            for page_number in range(round(settings.RECORDS / 20))
+            for page_number in range(math.ceil(10 / 20))
         ]
         logger.info(f"Fetching {settings.RECORDS} URLs")
         for page in await asyncio.gather(*tasks):
@@ -62,7 +63,7 @@ def parse_apartment_sync(
     price = soup.find("span", id="BuyPrice").text
     address_parts = soup.find("h2", itemprop="address").get_text(strip=True).split(", ")
     address = address_parts[0]
-    region = address_parts[1]
+    region = ", ".join(address_parts[1:])
     title = soup.find("span", {"data-id": "PageTitle"}).get_text(strip=True)
     image_elements = soup.find_all("img")
     image_urls = [img["src"] for img in image_elements if "src" in img.attrs]
