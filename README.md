@@ -2,7 +2,7 @@
 
 ## Overview
 
-This script is parsing AutoRia website and make sql dumps
+This script is parsing realitylink website
 
 ## Prerequisites
 
