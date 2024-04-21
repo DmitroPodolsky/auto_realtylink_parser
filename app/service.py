@@ -26,7 +26,7 @@ async def parse_apartment_urls() -> list[dict[str, str]]:
         logger.info("Fetching Page URLs")
         tasks = [
             fetch_post_html_from_url(session, page_number)
-            for page_number in range(math.ceil(10 / 20))
+            for page_number in range(math.ceil(settings.RECORDS / 20))
         ]
         logger.info(f"Fetching {settings.RECORDS} URLs")
         for page in await asyncio.gather(*tasks):
